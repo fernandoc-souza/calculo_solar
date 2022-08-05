@@ -26,8 +26,9 @@ kwhm = result_final - porct # kWh/mês
 st.write(""" <style> .font {font-size:20px ; font-family: 'Cooper Black'; color: red;}</style> """, unsafe_allow_html=True)
 
 if kwhm > 0:
+    st.subheader('Consulmo Mensal:')
     st.write('<p class="font">Nome do cliente: {}</p> '.format(n_cliente), unsafe_allow_html=True)
-    st.write('<p class="font">Kwhm: {}</p>'.format(round(kwhm)), unsafe_allow_html=True)
+    st.write('<p class="font">{}Kwh</p>'.format(round(kwhm)), unsafe_allow_html=True)
 else:
     st.write('Preencha todos os campos')
 
