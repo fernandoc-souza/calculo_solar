@@ -7,7 +7,7 @@ st.title('CÁLCULO SOLAR')
 # ------------
 option = st.selectbox(
      'Selecione o tipo de cálculo',
-     ('Escolha o cálculo', 'Cáculo para encontrar o KWh/mês', 'Cáculo para encontrar a Qtd de módulos'))
+     ('Escolha o cálculo', 'Cáculo para encontrar o KWh/mês', 'Cáculo para encontrar a Qtd de módulos', 'CÁLCULO MPPT'))
 
 if (option == 'Cáculo para encontrar o KWh/mês'):
     st.subheader('Cáculo para encontrar o KWh/mês')
@@ -50,9 +50,33 @@ elif(option == 'Cáculo para encontrar a Qtd de módulos'):
     else:
         st.write('Preencha todos os campos')
 
+    # CÁLCULO MPPT
+elif(option == 'CÁLCULO MPPT'):
+    # 1º- Entrada dados do módulo:
+    st.subheader('Entre com os dados do módulo:')
+    Voc = st.number_input('Digite a tensão de circuito aberto Voc:')  # tensão circuito aberto
+    Temp = st.number_input('Digite a temperatura(menor do ano:)')
+    stc = st.number_input('Digite o STC:')
+    TcVoc = st.number_input('Digite o Coeficiente circuito aberto TcVoc(%):')  # coeficiente circuito aberto(%)
+    # fórmula
+    if TcVoc != 0:
+        VocMax = Voc + Voc * ((Temp - stc) * (TcVoc / 100))
+        st.write('Tensão de Circuito aberto Máximo', round(VocMax, 2))
+        st.subheader(40 * '=')
+    else:
+        st.write('Preencha todos os campos')
+
+    # 2º- Encontrar número máximo de módulos suportado por string
+    VinMax = st.number_input('Digite a voltagem de entrada máxima:')
+    if (VinMax != 0) and (VocMax != 0):
+        modstring = VinMax / VocMax
+        st.write('Nº máximo de módulos por string', round(modstring))
+        st.subheader(40 * '=')
+    else:
+        st.write('Preencha todos os campos')
+
 else:
     st.write('ESCOLHA UMA OPÇÃO')
 
 
 # ---------------------------------------------------------------------
-st.subheader(40 * '=')
